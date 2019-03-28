@@ -17,6 +17,11 @@ function *main() {
 		get bottom() {return this.top + this.height},
 		hasJumped: false
 	}
+	const camera = {
+		left: 0,
+		top: 0
+
+	}
 
 	const input = vdp.input
 	vdp.configBackdropColor('#59f');  // no named color, only #rgb
@@ -31,8 +36,12 @@ function *main() {
 
 		
 		// vdp looks into everything in gfx folder
-		vdp.drawBackgroundTilemap('level1', {scrollX: 200, lineTransform})
-		vdp.drawObject(vdp.sprite("mario").tile(6), mario.left,mario.top, {flipH: mario.horizontalVelocity >= 0 ? false: true})
+		vdp.drawBackgroundTilemap('level1', {scrollX: camera.left, lineTransform})
+		vdp.drawObject(vdp.sprite("mario").tile(6), mario.left - camera.left,mario.top, {flipH: mario.horizontalVelocity >= 0 ? false: true})
+
+		if (mario.left - camera.left > vdp.screenWidth / 2) {
+			camera.left = mario.left + vdp.screenWidth/2
+		}
 
 		counter += 1
 		const colors = [
