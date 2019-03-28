@@ -22,11 +22,15 @@ function *main() {
 	vdp.configBackdropColor('#59f');  // no named color, only #rgb
 
 	let counter = 0
+	let angle = 0
 	while (true) {
 		const lineTransform = new vdp.LineTransformationArray();
 		for (let line = 0; line < 256; line++) {
-			const x = Math.sin((line + counter) / 20) * 10
-			lineTransform.translateLine(line, [x, 0])
+			lineTransform.rotateLine(line, angle)
+			const scale = 100 / (line + 50)
+			lineTransform.scaleLine(line, [scale, scale])
+			// const x = Math.sin((line + counter) / 20) * 10
+			// lineTransform.translateLine(line, [x, 0])
 		}
 
 		
@@ -91,10 +95,12 @@ function *main() {
 		// 	mario.top += 1;
 		// }
 		if (input.isDown(input.Key.Left)) {
-			mario.horizontalVelocity -= 0.1;
+			angle += 0.01
+			//mario.horizontalVelocity -= 0.1;
 		} else
 		if (input.isDown(input.Key.Right)) {
-			mario.horizontalVelocity += 0.1;
+			angle -= 0.01
+			//mario.horizontalVelocity += 0.1;
 		} else {
 			mario.horizontalVelocity = 0
 		}
