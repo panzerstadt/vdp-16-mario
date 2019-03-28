@@ -31,16 +31,18 @@ function *main() {
 		const lineTransform = new vdp.LineTransformationArray();
 		for (let line = 0; line < 256; line++) {
 			const x = Math.sin((line + counter) / 20) * 10
-			lineTransform.translateLine(line, [x, 0])
+			//lineTransform.translateLine(line, [x, 0])  // LSD
 		}
 
 		
 		// vdp looks into everything in gfx folder
 		vdp.drawBackgroundTilemap('level1', {scrollX: camera.left, lineTransform})
-		vdp.drawObject(vdp.sprite("mario").tile(6), mario.left - camera.left,mario.top, {flipH: mario.horizontalVelocity >= 0 ? false: true})
+		vdp.drawObject(vdp.sprite("mario").tile(Math.floor(counter/8) % 3), mario.left - camera.left, mario.top, {width: mario.width, height: mario.height, flipH: mario.horizontalVelocity >= 0 ? false: true})
+
+		vdp.drawObject(vdp.sprite("goomba").tile(3), 10,10)
 
 		if (mario.left - camera.left > vdp.screenWidth / 2) {
-			camera.left = mario.left + vdp.screenWidth/2
+			camera.left = mario.left - vdp.screenWidth/2
 		}
 
 		counter += 1
@@ -119,7 +121,7 @@ function *main() {
 		}
 		
 
-		//vdp.drawObject(vdp.sprite("goomba").tile(3), 50,0)
+		
 		yield;
 	}
 }

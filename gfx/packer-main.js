@@ -6,6 +6,7 @@ const SCREEN_WIDTH = 256, SCREEN_HEIGHT = 256;
 config({ compact: true, debug: false }, () => {
 	palette('mario', () => {
 		tileset('mario', image('mario.png'), 16, 16);
+		tileset("goomba", image("goomba.png"), 16, 16)
 	});
 
 	palette('level1', () => {
